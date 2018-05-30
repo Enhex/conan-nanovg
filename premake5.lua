@@ -23,7 +23,7 @@ workspace("nanovg")
 
 		libdirs{conan_libdirs}
 		links{conan_libs, "OpenGL32.lib"}
-		defines{conan_cppdefines, "_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS"}
+		defines{conan_cppdefines, "FONS_USE_FREETYPE"}
 		bindirs{conan_bindirs}
 
 		filter "configurations:Debug"
