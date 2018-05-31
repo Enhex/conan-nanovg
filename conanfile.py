@@ -19,6 +19,10 @@ class NanovgConan(ConanFile):
 	def source(self):
 		self.run("git clone --depth=1 https://github.com/memononen/nanovg.git")
 
+	def configure(self):
+		self.options["freetype"].with_png = False;
+		self.options["freetype"].with_zlib = False;
+	
 	def build(self):
 		from premake import run_premake
 		run_premake(self)
