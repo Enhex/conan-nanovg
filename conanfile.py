@@ -1,5 +1,21 @@
 from conans import ConanFile, tools
 
+# automatically choose Premake generator
+def run_premake(self):
+	if "Visual Studio" in self.settings.compiler:
+		_visuals = {'8': '2005',
+					'9': '2008',
+					'10': '2010',
+					'11': '2012',
+					'12': '2013',
+					'14': '2015',
+					'15': '2017',
+					'16': '2019'}
+		premake_command = "premake5 vs%s" % _visuals.get(str(self.settings.compiler.version), "UnknownVersion %s" % str(self.settings.compiler.version))
+		self.run(premake_command)
+	else:
+		self.run("premake5 gmake2")
+
 class NanovgConan(ConanFile):
 	name = "nanovg"
 	version = "master"
@@ -12,8 +28,7 @@ class NanovgConan(ConanFile):
 	generators = "premake"
 	exports = "premake5.lua"
 	requires = (
-		"premake_generator/master@enhex/stable",
-		"freetype/2.9.0@bincrafters/stable"
+		"freetype/2.10.1"
 	)
 	
 	def source(self):
@@ -24,7 +39,6 @@ class NanovgConan(ConanFile):
 		self.options["freetype"].with_zlib = False;
 	
 	def build(self):
-		from premake import run_premake
 		run_premake(self)
 		self.run("build")
 		

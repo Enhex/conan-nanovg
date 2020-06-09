@@ -1,6 +1,6 @@
 location_dir = "./"
 
-include(location_dir .. "conanpremake.lua")
+include(location_dir .. "conanbuildinfo.premake.lua")
 
 workspace("nanovg")
 	location(location_dir)
