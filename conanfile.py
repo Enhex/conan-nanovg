@@ -28,20 +28,20 @@ class NanovgConan(ConanFile):
 	generators = "premake"
 	exports = "premake5.lua"
 	requires = (
-		"freetype/2.10.1"
+		"freetype/2.10.4"
 	)
-	
+
 	def source(self):
 		self.run("git clone --depth=1 https://github.com/memononen/nanovg.git")
 
 	def configure(self):
 		self.options["freetype"].with_png = False;
 		self.options["freetype"].with_zlib = False;
-	
+
 	def build(self):
 		run_premake(self)
 		self.run("build")
-		
+
 	def package(self):
 		self.copy("*.h", dst="include", src="nanovg/src")
 		self.copy("*.lib", dst="lib", keep_path=False)
