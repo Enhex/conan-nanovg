@@ -28,7 +28,7 @@ class NanovgConan(ConanFile):
 	generators = "premake"
 	exports = "premake5.lua"
 	requires = (
-		"freetype/2.10.4"
+		"freetype/2.11.1"
 	)
 
 	def source(self):
