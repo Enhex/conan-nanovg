@@ -1,11 +1,13 @@
 location_dir = "./"
 
-include(location_dir .. "conanbuildinfo.premake.lua")
+include(location_dir .. "conandeps.premake5.lua")
 
 workspace("nanovg")
 	location(location_dir)
-	configurations { conan_build_type }
-	architecture(conan_arch)
+	configurations { "Debug", "Release" }
+
+	-- Conan 2 comes with a generator that doesn't work with debug build
+	conan_setup("release_x86_64")
 
 	project("nanovg")
 		kind "StaticLib"
@@ -14,17 +16,11 @@ workspace("nanovg")
 		targetdir = location_dir .. "bin/%{cfg.buildcfg}"
 
 		files{
-			"nanovg/src/*",
+			"nanovg/src/**",
 		}
 
-		includedirs{
-			conan_includedirs
-		}
-
-		libdirs{conan_libdirs}
-		links{conan_libs, "OpenGL32.lib"}
-		defines{conan_cppdefines, "FONS_USE_FREETYPE"}
-		bindirs{conan_bindirs}
+		links{"OpenGL32.lib"}
+		defines{"FONS_USE_FREETYPE"}
 
 		filter "configurations:Debug"
 			defines { "DEBUG" }
