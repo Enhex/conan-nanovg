@@ -4,10 +4,7 @@ include(location_dir .. "conandeps.premake5.lua")
 
 workspace("nanovg")
 	location(location_dir)
-	configurations { "Debug", "Release" }
-
-	-- Conan 2 comes with a generator that doesn't work with debug build
-	conan_setup("release_x86_64")
+	conan_setup()
 
 	project("nanovg")
 		kind "StaticLib"
