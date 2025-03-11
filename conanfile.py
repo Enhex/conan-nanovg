@@ -39,6 +39,7 @@ class NanovgConan(ConanFile):
 	def configure(self):
 		self.options["freetype"].with_png = False
 		self.options["freetype"].with_zlib = False
+		self.options["freetype"].with_brotli = False
 
 	def build(self):
 		run_premake(self)
